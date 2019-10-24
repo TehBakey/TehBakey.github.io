@@ -165,14 +165,22 @@ animals.push(dragon)
  9. [ ] `console.log` your work.
  */
 
-var friends = {};
+var friends = [];
 
 function getRandom(animals){
-     return Math.random() * (animals.length - 0) + 0;
-}
+     min = Math.ceil(0);
+  max = Math.floor(animals.length);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
+var index = getRandom(animals)
+console.log(getRandom(animals))
 
+function addFriends(index){
+    friends.push(animals[index].name)
+}
+
+animals[index].friends = friends;
 /**
  * Nice work! You're done Part 1. Pat yourself on the back and
  * move onto Part 2 in the file called "functions.js"
