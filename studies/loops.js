@@ -10,7 +10,7 @@
  * 2. While loops is followed by a condition statement, while continues to excute a block of code as long as the statement is true.
  * while (variable is true){do thing}
  * 
- * 3. For-in loops loops through the properties of an object. It's followed by a statement (key in object), key being the retun value 
+ * 3. For-in loops loops through the properties of an object. It's followed by a statement (key in object), key being the return value 
  * and object being the object you are looping through. Objects can be objects, arrays, or even primiatives due to JavaScripts behavior
  */
 
@@ -39,3 +39,22 @@ while (i >= 0) {
   console.log(i); 
   i--;
 } //prints each value from 9 to 0 in the console log, new line for each value
+
+// 3. For In loops
+
+var obj = {
+  key1: "value1",
+  key2: "value2",
+  key3: "value3"
+}
+
+
+for (key in obj){
+  console.log(key)
+}
+
+/*logs
+      "key1"
+      "key2"
+      "key3"
+*/

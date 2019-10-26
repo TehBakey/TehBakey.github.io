@@ -13,14 +13,16 @@
  * 5. Unrary operators have only one operand and preforms and operation on it. it can increment & decement (++)(--), be a logical Not operation (!),
  *  give us the type of a operand (typeof), delelte the spefic arry index or object property (delete)
  * 6. Ternary operators takes three operands, the operator can have one of two values based on a condition.
- */
+ * the syntax is condition ? exprIfTrue : exprIfFalse
+ * returns the expression one the left of : if true, the expression on the right if false
+ */ 
 
 
 // 1. Assigment //
 var x=1
 console.log(x) //prints 1
 
-//addtration assigment
+//addition assigment
 var num = 1
 console.log(num) //prints 1 to console
 
@@ -44,25 +46,33 @@ var foobar = "foobar"
 console.log(foobar -= "bar") //prints NaN
 
 // 2 Arithmethic opeators //
-console.log (1+x)  //returns 2
+console.log (1+x)  //logs 2
 
 x = 5
-console.log (x*2) //returns 10
+console.log (x*2) //logs 10
+
+console.log (x-2) // logs 3
 
 // 3 Comparision Operators
 
-console.log(1>0)  //returns true
-console.log(0>1)  //retruns false
+console.log(1>0)  //logs true
+console.log(0>1)  //logs false
 
 // 4 Logical Operators
 
-console.log((5>0)&&(5>6)) //retruns false, 5 is greater than 0 but not greater than 0 AND greater than 6
+console.log((5>0)&&(5>6)) //logs false, 5 is greater than 0 but not greater than 0 AND greater than 6
+
+var or1 = 6
+var or2 = 1
+console.log(or1 == 5 || or2 == 5) // logs false, neither are true
+
+console.log(or1 ==5 || or2 == 1) //logs true, or1 == 5 is false, but o2 == 1 is true so the logical OR equates to true as long as one of the two statements is true
 
 // 5 Unrary operators
 
 var deleteMe= ["delete", "me!"]
 
-console.log(deleteMe) // returns ["delete", "me!"]
+console.log(deleteMe) // logs ["delete", "me!"]
 
 delete deleteMe[1] //deletes the value at index 1 of the array
 

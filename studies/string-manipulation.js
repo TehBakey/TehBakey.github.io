@@ -7,36 +7,46 @@
  * the lengths of both string, while others like multiply will return NaN.
  * 2. Methods can be run on strings to give us diffrent information for the string such as it's length, the index of a certain string within that string,
  * search for a speficied value and return it's index.
+ * 3. 
 
  * */
 
 
 // 1. Operators //
 
-console.log("big" > "bigger") //returns false
+console.log("big" > "bigger") //logs false
 
-console.log("Hello" + "World") //returns "HelloWorld", note the lack of space since 'space' is a character it's self
+console.log("Hello" + "World") //logs "HelloWorld", note the lack of space since 'space' is a character it's self
 
-console.log("Hello"*"World")  //returns NaN
+console.log("Hello"*"World")  //logs NaN
 
 // 2. Methods //
 var string1 = "hello"
-console.log(string1.length) // returns 5, the length of the string "hello"
 
-console.log(string1[string1.length-1]) //retruns 'o' the value at the last index of "hello"
+console.log(string1.indexOf('hell')) //logs 0, the first index
 
-console.log(string1.indexOf('hell')) //returns 0, the first index
+console.log(string1.indexOf('lo')) //logs 3
 
-console.log(string1.indexOf('lo')) //returns 3
-
-console.log(string1.indexOf('howdy'))  //returns -1 since it didn't contain the substring 'howdy'
+console.log(string1.indexOf('howdy'))  //logs -1 since it didn't contain the substring 'howdy'
 
 //splice extracts a substring from within a string using the index of the substring start and the ending index
 console.log(string1.slice(0,4)) // retruns 'hell'
 
-//if slice takes one operand it returns the characters after the speficied index
-console.log(string1.slice(2)) //retruns 'llo'
+//if slice takes one operand it logs the characters after the speficied index
+console.log(string1.slice(2)) //logs 'llo'
 
-console.log(string1.toUpperCase) // returns "HELLO"
+console.log(string1.toUpperCase()) // logs "HELLO"
 
-console.log(string1.replace('hel', 'hi')) //returns "hilo"
+console.log(string1.replace('hel', 'hi')) //logs "hilo"
+
+console.log(string1.charAt(0)) //logs "h"
+
+console.log(string1.endsWith("!")) //logs false
+
+console.log(string1.includes("hell")) //logs true
+// 3. Properties //
+
+
+console.log(string1.length) // logs 5, the length of the string "hello"
+
+console.log(string1[string1.length-1]) //logs 'o' the value at the last index of "hello"

@@ -2,32 +2,62 @@
 // flatten /////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
 
-function flatten() {
-
+function flatten(array) {
+    //array.reduce method takes in flat function and current value as it loops
+    //through array. => sets the value flat as function expression which takes
+    //current value from reduce method and concats it inside an array
+  return array.reduce((flat, current) => flat.concat(current), [])
 }
 
 // /////////////////////////////////////////////////////////////////////////////
 // loop ////////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
 
-function loop() {
 
+function loop(start, test, update, body) {
+  //for loop takes start value as counter, test function as stop contional
+  // and update as incrimentor
+  for (let value = start; test(value); value = update(value)) {
+   
+   // returns body function with value as paramater, in this case console.log
+    body(value);
+  }
 }
+
+loop(3, n => n > 0, n => n - 1, console.log);
+// → 3
+// → 2
+// → 1
 
 // /////////////////////////////////////////////////////////////////////////////
 // every ///////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
-
-function every() {
-
+// function takes in an array and a predicate function's value
+function every(array, predicate) {
+  //for loop reruns over each element of the array
+  for (let element of array) {
+    // if predicate function is not true return false
+    if (!predicate(element)) return false;
+  }
+  //else true
+  return true;
 }
+console.log(every([1, 3, 5], n => n < 10));
+// logs true
 
 // /////////////////////////////////////////////////////////////////////////////
 // dominantDirection ///////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
 
-function dominantDirection() {
+function dominantDirection(text) {
+  let counted = countBy(text, char => {
+    let script = characterScript(char.codePointAt(0));
+    return script ? script.direction : "none";
+  }).filter(({name}) => name != "none");
 
+  if (counted.length == 0) return "ltr";
+
+  return counted.reduce((a, b) => a.count > b.count ? a : b).name;
 }
 
 // /////////////////////////////////////////////////////////////////////////////

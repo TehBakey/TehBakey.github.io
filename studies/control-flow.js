@@ -24,8 +24,10 @@
  *
  * 4. Switch uses the switch keyword to select a code block to be executed if the condition is met. It can run the same code block on multiple cases,
  * the break keyword is used to indicate where to break out or stop the execution of a code block, if you don't include a break statement the next case will be exectuted
- * even if it doesn't mean the condition.
+ * even if it doesn't mean the condition. 
  *
+ * You want to use switch over an if else chain if you're checking for a case to equate to an expression rather than a boolean true/false,
+ * you have mutliple values that require the same code, or for readibility and easier syntax.
  */
 
 // 1. If statements:

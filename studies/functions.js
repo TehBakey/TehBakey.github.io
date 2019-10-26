@@ -5,17 +5,18 @@
  * including other functions.
  *
  * 
- * 1.  Functions also have a bulit-in object called agruments, which contains all the agruments passed into a function as an array.
- * Parameters are the vairable created whent he function is defined, agruments are the values passed to those variables. If a function
+ * 1.  Functions also have a built-in object called agruments, which contains all the agruments passed into a function as an array.
+ * Parameters are the variable created when the function is defined, arguments are the values passed to those variables. If a function
  * changes the agrument's value it does not change the parameter's oringal value.
- *
- * 2. Functions can be declared with a name or be anoymous function expressions.
+ *Paramaters that are not declared will return undefined, defualts can be set in the (paramters) ex: myFunction(a=1, b)
+ *Arguments object contains an array of agruments used when function was called
+ * 2. Functions can be declared with a name or be anonymous function expressions.
  *
  * 3. Functions are effected by hoisting, function declarations are hoisted to the top of their current scope, function expressions are not hoisted- instead only put into
  * memory when the function expression is invoked.
  *
- * 4. Closures: Functions normally only have acess to their own scope and their parents scope. Closures make localy avaible variables outside of their scope when another function
- * nested in the first that refrences and outputs the value from the first.
+ * 4. Closures: Functions normally only have acess to their own scope and their parents scope. Closures make locally availiable variables outside of their scope when another function
+ * nested in the first that refrences and outputs the value from the first. The innter function
  */
 
 // 1. Parameters/Agruments
@@ -27,6 +28,13 @@ function fun1(a, b, c) {
 }
 
 fun1(1,2,3)
+
+
+function funx(x, y=1){
+ return x + y;}
+ 
+ console.log(funx(5)) // logs 6
+ console.log(funx(5,2)) // logs 7
 
 //console logs 1 2 3 on a new line for each value, a, b, c are the parameters for the function, 1, 2 ,3 are the arguments (values passed into the parameters at call time)
 
@@ -46,7 +54,7 @@ console.log(z) //console logs "12", var x is set to an anon function expression
 // 3 Hoisting/Scope of functions //
 
 //console.log(catName) returns an error, catName is undefined because it is localy scoped to the function block
-// code here can NOT use carName
+// code here can NOT use catName
 
 function myFunction() {
   var catName = "Saturn";
@@ -54,6 +62,19 @@ function myFunction() {
   // code here CAN use carName
 
 }
+
+// another example, both use var test, but each have a diffrent scope
+var test = "I'm global";
+
+function testScope() {
+  var test = "I'm local";
+
+  console.log (test);     
+}
+
+testScope();           // output: I'm local
+
+console.log(test);     // output: I'm global
 
 //4 Closures //
 function Person (paramName){
@@ -77,3 +98,38 @@ var me2 = new Person1("Blake")
 console.log(me2) //console logs an object literal because the name varable is outside of our scope
 
 console.log(me2.name) //prints "undefined" to console
+
+// another example:
+
+// Initiate counter
+var counter = 0;
+
+// Function to increment counter
+function add() {
+  var counter = 0;
+  counter += 1;
+}
+
+// Call add() 3 times
+add();
+add();
+add();
+
+//The counter should now be 3. But it is set the the global variable counter = 0
+
+var add = (function () {
+  var counter = 0;
+  return function () {counter += 1; return counter}
+})();
+
+add();
+add();
+add();
+
+// the counter is now 3
+
+/*
+- Your closures explanation is unclear. Try reading this excerpt from w3 schools: https://www.w3schools.com/js/js_function_closures.asp
+
+
+*/

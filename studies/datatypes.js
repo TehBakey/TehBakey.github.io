@@ -3,7 +3,7 @@
  *
  * 0. Data types can be simple/primitive or complex:
  *      *Simple datatypes are not objects and have no methods
- *      *Complex datatypes are either objects; a key/value pair
+ *      *Complex datatypes are objects; a collection key/value pairs
  *      
  *
  * 1. Number: 
@@ -31,8 +31,9 @@
  *      *An object is a complex data type contained within curly braces {}
  *      *Objects are ussualy a collections of data relating to a single object/idenity 
  *      i.e. each contact in your phone would be a seperate object with data relating to the person in question
- *      *Can be acessed similar to arrys but instead of using an idex each value is paired with a key within the object
+ *      *Can be acessed similar to arrys but instead of using an index each value is paired with a key within the object
  *      *Objects can contain refrences to any other data type, including other objects & functions!
+ *      *Objects are copied by refrence instead of being copied by value, this means they can be modified.
  * 
  * 6. Function
  *      *Functions are blocks of code contained within {} that excute the contained code with called
@@ -59,35 +60,35 @@ at a number line, postive infitiy would be all the values from postive one onewa
 
 
 // 1. Number //
-console.log (1+1); //retruns 2
-console.log (1-1); //returns 0
-console.log (21*2); //returns 42
+console.log (1+1); //logs 2
+console.log (1-1); //logs 0
+console.log (21*2); //logs 42
 console.log (42/2); 
-                        //returns 21
+                        //logs 21
 var x = 1 //numbers can also be variables
 
-console.log (x+1) //returns 2
+console.log (x+1) //logs 2
 
 // 2. String //
-console.log("Hello") //prints "hello" to console
+console.log("Hello") //logs "hello" to console
 
-console.log("abc123") //prints "abc12" to console
+console.log("abc123") //logs "abc12" to console
 console.log("abc123"[3]) //returns 1
 
 console.log("Howdy" + "Partner") //returns "HowdyPartner"
 
-console.log("thisisaprettylongstring".length) //returns 23
+console.log("thisisaprettylongstring".length) //logs 23
 
 // 3. Boolean //
-console.log(1<2); // returns true
-console.log(1>2); //returns false
+console.log(1<2); // logs true
+console.log(1>2); //logs false
 
-console.log(false == 0) //returns true
+console.log(false == 0) //logs true
 
 function greaterTest(num1, num2){
     if (num1 > num2){
         return true
-    } else return false
+    } else {return false}
 }
 
 greaterTest(1,2) //returns false
@@ -96,21 +97,21 @@ var myBool
 
 myBool =1 === "1";
 
-console.log(myBool) //returns false because the number 1 is not strictly equal to the string "1"
+console.log(myBool) //logs false because the number 1 is not strictly equal to the string "1"
 
 // 4 Array //
 
 var arr = [1, "two", true]  //arr is now an array, containing a number, string, and boolean value
 
-console.log(arr)  // retruns [1, "two", true]
+console.log(arr)  // logs [1, "two", true]
 
 arr.push(1,2,3['red','blue']) //push method 'pushes' new values to the end of the array
 
-console.log(arr) //retruns [1, "two", true, 1, 2, 3, ['red', 'blue']], the last value being another array nested inside the first
+console.log(arr) //logs [1, "two", true, 1, 2, 3, ['red', 'blue']], the last value being another array nested inside the first
 
-console.log(arr.length) //returns 7
+console.log(arr.length) //logs 7
 
-console.log (arr[arr.length-1]) // retruns ["red", "blue"], since index starts at 0 the last value in an array will always be it's length -1
+console.log (arr[arr.length-1]) // logs ["red", "blue"], since index starts at 0 the last value in an array will always be it's length -1
 
 // 5 Object //
 
@@ -153,6 +154,19 @@ Now the 'pet' key as a another object nested inside the first as it's value
 
 console.log(blakeObject['pet'].type) //prints "Cat" to the console
 
+// objects are copied by refrence, not value
+
+var x = 10;
+var y = 10;
+
+console.log(x === y) //logs true, both x and y have the same value
+
+var arr1 = ['Hi!'];
+var arr2 = ['Hi!'];
+
+console.log(arr1 === arr2); // logs false, even though both objects have the same property they are not strictly equal because they are diffrent refrences in memory
+
+
 //6 Function //
 
 function greeting (name) {
@@ -165,7 +179,7 @@ greeting("Blake") //Calls the function with "Blake" as the agurment for (name), 
 
 // 7 Undefined //
 var foo
-// console.log(foo); will throw up a refrence arror since it has not be define
+// console.log(foo); will throw up a refrence arror since it has not been defined
 // the variable "foo" exists but it has been assigned no value
 
 //8 Null //
