@@ -127,9 +127,3 @@ add();
 add();
 
 // the counter is now 3
-
-/*
-- Your closures explanation is unclear. Try reading this excerpt from w3 schools: https://www.w3schools.com/js/js_function_closures.asp
-
-
-*/
