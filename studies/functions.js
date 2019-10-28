@@ -16,7 +16,8 @@
  * memory when the function expression is invoked.
  *
  * 4. Closures: Functions normally only have acess to their own scope and their parents scope. Closures make locally availiable variables outside of their scope when another function
- * nested in the first that refrences and outputs the value from the first. The innter function
+ * nested in the first that refrences and outputs the value from the first. The outter function declares variables that the inner function can interact with where normally a two seperate functions
+ * would not be able to acess each other's variables due to scope.
  */
 
 // 1. Parameters/Agruments
