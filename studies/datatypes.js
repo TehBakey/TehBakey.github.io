@@ -4,7 +4,10 @@
  * 0. Data types can be simple/primitive or complex:
  *      *Simple datatypes are not objects and have no methods
  *      *Complex datatypes are objects; a collection key/value pairs
- *      
+ *      *Primitive data is copied by value while complex data is copied by refrence,
+ *       Meaning that when we delcare a variable with a primirative datatype a new
+         spot in memory is created containing hat value, while refrence creates
+ *      a refrence to the key/value pair.
  *
  * 1. Number: 
  *      *Numbers are any numerical value: postive, negative, or with decimal points
@@ -57,7 +60,48 @@ at a number line, postive infitiy would be all the values from postive one onewa
         *These behave like mathematical infitiny with slight diffrences.
   
  */
+ 
+ 
+ 
+// 0. Copy by value vs copy by refrence
+let a = 42
+let b = a
 
+console.log(a) // logs 42
+console.log(b) // logs 42
+
+a = 042
+
+console.log(a) //logs 042
+console.log(b) // logs 42
+
+//the value of b was set to a COPY of the value of a
+//changing a does not change b
+
+var refa = {test: "test"}
+var refb = refa
+
+console.log(refa) 
+console.log(refb)
+/*both logs will log:
+[object Object] {
+  test: "test"
+}
+*/
+
+
+refa.test = "test2"
+
+console.log(refb)
+/*
+logs:
+[object Object] {
+  test: "test2"
+}
+
+Objects are stored by refrence to their key value pair rather than just coping a value
+changing the test property of a also changes b.
+*/
 
 // 1. Number //
 console.log (1+1); //logs 2

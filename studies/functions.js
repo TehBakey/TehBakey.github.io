@@ -60,7 +60,7 @@ console.log(z) //console logs "12", var x is set to an anon function expression
 function myFunction() {
   var catName = "Saturn";
 
-  // code here CAN use carName
+  // code here CAN use catName
 
 }
 

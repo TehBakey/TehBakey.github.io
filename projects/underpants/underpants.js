@@ -85,8 +85,8 @@ _.typeOf = function(value){
 
 
 _.first = function(array, number) {
-    let result = []
-    if (Array.isArray(array) === false){
+  let result = []
+    if (Array.isArray(array) === false || number <= 0){
         return []
     }
     if (number === undefined || NaN){
@@ -95,9 +95,7 @@ _.first = function(array, number) {
     if (number > array.length){
         return array
     }
-    if (number <= 0){
-        return  []
-    }
+
     for (let i=0; i < number; i++){
         result.push(array[i])
         
@@ -136,9 +134,9 @@ _.first = function(array, number) {
     if (number <= 0){
         return  []
     }
-    for (let i = array.length -1; i >= number; i--){
-        console.log(i)
-        result.push(array[i])
+    for (let i = array.length -1; i >= array.length -number; i--){
+        //console.log(i)
+        result.unshift(array[i])
     } return result
 }
 
@@ -158,6 +156,16 @@ _.first = function(array, number) {
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function (array, value){
+    if (array.includes(value) === false){
+        return -1
+    }
+    for (let i = 0; i < array.length-1; i++){
+        if (array[i] === value){
+            return i
+        }
+    }
+}
 
 /** _.contains
 * Arguments:
@@ -175,6 +183,10 @@ _.first = function(array, number) {
 */
 
 
+_.contains = function(array, value){
+    return array.includes(value) ? true:false
+}
+
 /** _.each
 * Arguments:
 *   1) A collection
@@ -190,7 +202,18 @@ _.first = function(array, number) {
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
-
+_.each = function(collection, func){
+    //console.log(collection)
+    if (Array.isArray(collection)){
+        for (let i=0; i < collection.length; i++){
+            func(collection[i],i,collection);
+        }
+    } else if (Array.isArray(collection) === false && typeof collection === "object"){
+        for (let key in collection){
+            func(collection[key],key,collection)
+        }
+    }
+}
 
 /** _.unique
 * Arguments:
@@ -201,7 +224,14 @@ _.first = function(array, number) {
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+_.unique = function(array){
+  var result = []
+  for (let i = 0; i < array.length; i++){
+    if (result.indexOf(array[i]) === -1){
+        result.push(array[i]);
+        }
+  }return result;
+}
 
 /** _.filter
 * Arguments:
@@ -218,7 +248,16 @@ _.first = function(array, number) {
 * Extra Credit:
 *   use _.each in your implementation
 */
-
+// filter takes an array and function as argument
+_.filter = function(arr, filterFunc) {    
+  let filterArr = []; // empty array        
+  // loop though array    
+  for(let i=0;i<arr.length;i++) {        
+    let result = filterFunc(arr[i], i, arr);        
+    // push the current element if result is true        
+    if(result)             filterArr.push(arr[i]);     
+  }    return filterArr;
+}
 
 /** _.reject
 * Arguments:
@@ -232,8 +271,15 @@ _.first = function(array, number) {
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-
-
+_.reject = function(arr, filterFunc) {    
+  let filterArr = []; // empty array        
+  // loop though array    
+  for(let i=0;i<arr.length;i++) {        
+    let result = filterFunc(arr[i], i, arr);        
+    // push the current element if result is false        
+    if(result === false)             filterArr.push(arr[i]);     
+  }    return filterArr;
+}
 /** _.partition
 * Arguments:
 *   1) An array
@@ -252,8 +298,41 @@ _.first = function(array, number) {
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+/*
+I: arr [] , function ()
+O: filter(array[i]) + reject
+C:
+E:
+*/
 
-
+// _.partition = function(array, testFunc) {
+//     let result
+//     let isTrue = []
+//     let isFalse= []
+//     for (let key of array){
+//     if (testFunc(array[key], key, array)){
+//         isTrue.push(testFunc(array[key], key, array))
+//     } else if (testFunc(array[key], key, array)=== false){
+//         isFalse.push(array[key])
+//     } 
+//         result = [isTrue,isFalse]
+//         return result
+//     }
+// }
+_.partition = function(array, testFunc){
+    let isTrue = []
+    let isFalse = []
+    
+    for (let key in array){
+        var test = testFunc(array[key], key, array)
+        if(test){isTrue.push(array[key])
+        //console.log(isTrue)
+    } else {isFalse.push(array[key])
+        //console.log(isFalse)
+        }
+    } 
+    return [isTrue,isFalse]
+}
 /** _.map
 * Arguments:
 *   1) A collection
@@ -270,7 +349,20 @@ _.first = function(array, number) {
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
-
+_.map = function(collection, func){
+    let type = _.typeOf(collection)
+    let result = []
+    //console.log(type)
+    if (type === 'object'){
+        for (let key in collection){
+            result.push(func(collection[key], key, collection))
+            //console.log(result)
+        } return result
+    } else if (type === 'array') {
+        for (let i=0; i < collection.length; i++)
+        result.push(func(collection[i], i, collection))
+    } return result
+}
 /** _.pluck
 * Arguments:
 *   1) An array of objects
@@ -281,8 +373,11 @@ _.first = function(array, number) {
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
-
-
+_.pluck = function(collection, prop){
+    for (let key in collection){
+   return collection.map(function(e){return e[key]})
+}
+}
 /** _.every
 * Arguments:
 *   1) A collection
