@@ -135,7 +135,7 @@ _.first = function(array, number) {
         return  []
     }
     for (let i = array.length -1; i >= array.length -number; i--){
-        //console.log(i)
+        ////console.log(i)
         result.unshift(array[i])
     } return result
 }
@@ -199,11 +199,11 @@ _.contains = function(array, value){
 *      with the arguments:
 *         the property's value, it's key, <collection>
 * Examples:
-*   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
+*   _.each(["a","b","c"], function(e,i,a){ //console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
 _.each = function(collection, func){
-    //console.log(collection)
+    ////console.log(collection)
     if (Array.isArray(collection)){
         for (let i=0; i < collection.length; i++){
             func(collection[i],i,collection);
@@ -271,14 +271,10 @@ _.filter = function(arr, filterFunc) {
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-_.reject = function(arr, filterFunc) {    
-  let filterArr = []; // empty array        
-  // loop though array    
-  for(let i=0;i<arr.length;i++) {        
-    let result = filterFunc(arr[i], i, arr);        
-    // push the current element if result is false        
-    if(result === false)             filterArr.push(arr[i]);     
-  }    return filterArr;
+_.reject = function(array, func){
+   return _.filter(array, function(elements, i, array){
+       return !func(elements, i, array)
+   });
 }
 /** _.partition
 * Arguments:
@@ -326,9 +322,9 @@ _.partition = function(array, testFunc){
     for (let key in array){
         var test = testFunc(array[key], key, array)
         if(test){isTrue.push(array[key])
-        //console.log(isTrue)
+        ////console.log(isTrue)
     } else {isFalse.push(array[key])
-        //console.log(isFalse)
+        ////console.log(isFalse)
         }
     } 
     return [isTrue,isFalse]
@@ -352,11 +348,11 @@ _.partition = function(array, testFunc){
 _.map = function(collection, func){
     let type = _.typeOf(collection)
     let result = []
-    //console.log(type)
+    ////console.log(type)
     if (type === 'object'){
         for (let key in collection){
             result.push(func(collection[key], key, collection))
-            //console.log(result)
+            ////console.log(result)
         } return result
     } else if (type === 'array') {
         for (let i=0; i < collection.length; i++)
@@ -374,10 +370,11 @@ _.map = function(collection, func){
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 _.pluck = function(collection, prop){
-    for (let key in collection){
-   return collection.map(function(e){return e[key]})
+    return _.map(collection, function(object, index, collection){
+        return object[prop];
+    });
 }
-}
+
 /** _.every
 * Arguments:
 *   1) A collection
@@ -398,7 +395,27 @@ _.pluck = function(collection, prop){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+_.every = function(collection, func){
+    
+//console.log("collection" , collection)
+let result = true
+if (func === undefined){
+    for (let key in collection){
+        if (collection[key] === false){
+            result =  false
+        }
+    }
+}else{
 
+    _.each(collection, (el, i, collection) => {
+        //console.log("elements ",el)
+        if (func(el, i, collection) === false){
+           result = false
+        }
+     
+    })}
+    return result
+}
 
 /** _.some
 * Arguments:
@@ -421,6 +438,27 @@ _.pluck = function(collection, prop){
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some= function(collection, func){
+    let result = false
+    
+    if (func === undefined){
+    for (let key in collection){
+        if (collection[key]){
+            result =  true
+        }
+    }
+}else{
+        _.each(collection, (el, i, collection) => {
+       
+        if (func(el, i, collection)){
+           result = true
+        }
+     
+    })}
+    return result
+}
+
+
 
 /** _.reduce
 * Arguments:
@@ -441,6 +479,23 @@ _.pluck = function(collection, prop){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = function(array, func, seed){
+   var prevResult = seed;
+   if (seed === undefined){
+       prevResult = array[0];
+       for (let i = 1; i < array.length; i++){
+           prevResult = func(prevResult, array[i], i);
+       }
+       //return prevResult;
+   } else {
+       _.each(array, function(el, i, array){
+           prevResult = func(prevResult, el, i, array)
+       })
+   }
+   return prevResult
+}
+
+
 
 /** _.extend
 * Arguments:
@@ -456,6 +511,32 @@ _.pluck = function(collection, prop){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+_.extend = function(object1,...objects){
+    for (let i=0; i < objects.length; i++){
+        for( let key in objects[i]){
+            let current = objects[i]
+            object1[key] = current[key]
+        }
+    } return object1
+}
+
+
+
+
+
+ //console.log("object" , object)   
+ //console.log("objects", objects)
+  //for (let prop in objects){
+      //console.log(objects[key])
+      //if (objects.hasOwnProperty(prop) && !object[prop]){
+          //object[prop] = objects[prop]
+      //}
+      
+  //}
+
+
+
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
